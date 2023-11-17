@@ -9,10 +9,10 @@ export async function fetchAvailableMeals() {
   return resData;
 }
 
-export async function fetchOrderedMeals(meals) {
+export async function fetchOrderedMeals(order) {
   const response = await fetch('http://localhost:3000/orders', {
     method: 'PUT',
-    body: JSON.stringify({ meals }),
+    body: JSON.stringify({ order }),
     headers: {
       'Content-Type': 'application/json',
     },

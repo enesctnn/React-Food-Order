@@ -2,9 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+/* width */
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+}
+
 @layer base {
   body {
-    @apply m-0 antialiased bg-gradient-to-t from-[#29251c] to-[#2c2306] min-h-screen overflow-x-hidden;
+    @apply m-0 antialiased bg-gradient-to-t from-[#29251c] to-[#2c2306] min-h-screen overflow-x-hidden pb-40;
     font-family: 'Raleway', sans-serif;
   }
 }
