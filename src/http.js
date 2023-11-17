@@ -6,8 +6,9 @@ export async function fetchAvailableMeals() {
     throw new Error('Failed to fetch meals.');
   }
 
-  return resData.meals;
+  return resData;
 }
+
 export async function fetchOrderedMeals(meals) {
   const response = await fetch('http://localhost:3000/orders', {
     method: 'PUT',
@@ -22,5 +23,5 @@ export async function fetchOrderedMeals(meals) {
     throw new Error('Failed to fetch orders.');
   }
 
-  return resData.message;
+  return resData;
 }

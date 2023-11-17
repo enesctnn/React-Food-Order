@@ -7,15 +7,15 @@ export default function useFetch(fetchFn, initialValue) {
 
   useEffect(() => {
     async function fetchData() {
+      setIsFetching(true);
       try {
         const data = await fetchFn();
         setFetchedData(data);
       } catch (error) {
         setError({ message: error.message || 'Failed to fetch data.' });
       }
+      setIsFetching(false);
     }
-
-    setIsFetching(false);
     fetchData();
   }, [fetchFn]);
 

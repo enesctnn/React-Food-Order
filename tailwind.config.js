@@ -6,6 +6,9 @@ export default {
       fontFamily: {
         Raleway: ['"Raleway"', 'sans-serif'],
       },
+      gridTemplateColumns: {
+        auto: 'repeat(auto-fit, minmax(20rem, 1fr))',
+      },
     },
   },
   plugins: [],
