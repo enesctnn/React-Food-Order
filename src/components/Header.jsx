@@ -9,13 +9,29 @@ export default function Header() {
   const { items } = useContext(CartContext);
   const cartQuantity = items.length;
 
-  let ModalActions = <Button className=" bg-white ">Close</Button>;
+  let modalActions = (
+    <Button textOnly className="font-normal hover:text-[#312c1d]">
+      Close
+    </Button>
+  );
+  let modalTitle = 'Cart Is Empty';
   if (cartQuantity) {
+    modalActions = (
+      <>
+        <Button textOnly className="mx-4 font-normal hover:text-[#312c1d]">
+          Close
+        </Button>
+        <Button className="hover:text-[#312c1d]" type="button">
+          Go to Checkout
+        </Button>
+      </>
+    );
+    modalTitle = 'Your Cart';
   }
 
   return (
     <>
-      <CartModal ref={dialog} />
+      <CartModal ref={dialog} actions={modalActions} title={modalTitle} />
       <header className="h-50 w-screen px-24 py-16 flex flex-row justify-between items-center text-yellow-500 select-none">
         <div className="flex flex-row h-10 items-center gap-4">
           <img

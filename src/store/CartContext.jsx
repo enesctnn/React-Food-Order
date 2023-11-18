@@ -3,7 +3,7 @@ import { createContext, useReducer } from 'react';
 const CartContext = createContext({
   items: [],
   addItem: (item) => {},
-  removeItem: (id) => {},
+  removeItem: (item, amount) => {},
 });
 
 export function cartReducer(state, action) {
@@ -31,8 +31,27 @@ export function cartReducer(state, action) {
     }
     return { ...state, items: updatedItems };
   }
-  if (action.type === 'REMOVE_ITEM') {
-    //remove an item from the state
+  if (action.type === 'UPDATE_ITEM') {
+    const updatedItems = [...state.items];
+    const updatedCartItemsIndex = updatedItems.findIndex(
+      (item) => item.id === action.payloads.item.id
+    );
+    const updatedItem = {
+      ...updatedItems[updatedCartItemsIndex],
+    };
+
+    updatedItem.quantity += action.payloads.amount;
+
+    if (updatedItem.quantity <= 0) {
+      updatedItems.splice(updatedCartItemsIndex, 1);
+    } else {
+      updatedItems[updatedCartItemsIndex] = updatedItem;
+    }
+
+    return {
+      ...state,
+      items: updatedItems,
+    };
   }
   return {
     items: [],
@@ -51,12 +70,20 @@ export function CartContextProvider({ children }) {
     });
   }
 
-  function handleUpdateCartItemQuantity() {}
+  function handleUpdateCartItemQuantity(item, amount) {
+    dispatchCartState({
+      type: 'UPDATE_ITEM',
+      payloads: {
+        item,
+        amount,
+      },
+    });
+  }
 
   const ctxValue = {
     items: cartState.items,
     addItem: handleAddItemToCart,
-    removeItem: () => {},
+    removeItem: handleUpdateCartItemQuantity,
   };
 
   return (

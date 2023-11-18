@@ -24,6 +24,12 @@
     @apply m-0 antialiased bg-gradient-to-t from-[#29251c] to-[#2c2306] min-h-screen overflow-x-hidden pb-40;
     font-family: 'Raleway', sans-serif;
   }
+
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 }
 
 /* @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Lato:wght@400;700&display=swap');
