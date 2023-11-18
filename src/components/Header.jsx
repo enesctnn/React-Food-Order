@@ -1,37 +1,30 @@
-import { useContext, useRef } from 'react';
-import Button from '../UI/Button';
+import { useContext, useEffect, useState } from 'react';
+import Button from './UI/Button';
 import headerImg from '/logo.jpg';
-import CartModal from './CartModal';
 import CartContext from '../store/CartContext';
+import Cart from './Cart';
+import UserProgressContext from '../store/UserProgressContext';
 
 export default function Header() {
-  const dialog = useRef();
   const { items } = useContext(CartContext);
-  const cartQuantity = items.length;
-
-  let modalActions = (
-    <Button textOnly className="font-normal hover:text-[#312c1d]">
-      Close
-    </Button>
+  const { showCart } = useContext(UserProgressContext);
+  const [cartAnimateClass, setCartAnimateClass] = useState('animate-bump');
+  const cartQuantity = items.reduce(
+    (totalNumberOfItems, item) => totalNumberOfItems + item.quantity,
+    0
   );
-  let modalTitle = 'Cart Is Empty';
-  if (cartQuantity) {
-    modalActions = (
-      <>
-        <Button textOnly className="mx-4 font-normal hover:text-[#312c1d]">
-          Close
-        </Button>
-        <Button className="hover:text-[#312c1d]" type="button">
-          Go to Checkout
-        </Button>
-      </>
-    );
-    modalTitle = 'Your Cart';
-  }
+
+  useEffect(() => {
+    setCartAnimateClass('');
+    const time = setTimeout(() => {
+      setCartAnimateClass('animate-bump');
+    }, 10);
+    return () => clearTimeout(time);
+  }, [cartQuantity]);
 
   return (
     <>
-      <CartModal ref={dialog} actions={modalActions} title={modalTitle} />
+      <Cart cartQuantity={cartQuantity} />
       <header className="h-50 w-screen px-24 py-16 flex flex-row justify-between items-center text-yellow-500 select-none">
         <div className="flex flex-row h-10 items-center gap-4">
           <img
@@ -47,7 +40,7 @@ export default function Header() {
           </h1>
         </div>
         <nav>
-          <Button textOnly onClick={() => dialog.current.open()}>
+          <Button textOnly className={cartAnimateClass} onClick={showCart}>
             Cart ({cartQuantity})
           </Button>
         </nav>
