@@ -32,10 +32,18 @@ export default function Cart({ cartQuantity }) {
         <p className="text-right m-3 text-2xl text-green-600 font-bold">
           {currencyFormatter.format(cartTotal)}
         </p>
-        <Button textOnly className="mx-4 font-normal hover:text-[#312c1d]" onClick={handleCloseCart}>
+        <Button
+          textOnly
+          className="mx-4 font-normal hover:text-[#312c1d]"
+          onClick={handleCloseCart}
+        >
           Close
         </Button>
-        <Button className="hover:text-[#312c1d]" onClick={handleCheckout}>
+        <Button
+          className="hover:text-[#312c1d]"
+          onClick={handleCheckout}
+          type="button"
+        >
           Go to Checkout
         </Button>
       </>
@@ -53,10 +61,15 @@ export default function Cart({ cartQuantity }) {
   }
 
   return (
-    <Modal open={progress === 'cart'} title={modalTitle} actions={modalActions}>
+    <Modal
+      open={progress === 'cart'}
+      title={modalTitle}
+      actions={modalActions}
+      onClose={progress === 'cart' ? handleCloseCart : null}
+    >
       <ul className="py-4 flex flex-col gap-2">
         {meals.map((meal) => (
-          <li key={meal.id} className="flex flex-row justify-between">
+          <li key={meal.id} className="flex flex-row justify-between w-[500px]">
             <p className="font-medium ">
               {meal.name} - {meal.quantity}
               <span> x </span>

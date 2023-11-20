@@ -9,13 +9,18 @@ export async function fetchAvailableMeals() {
   return resData;
 }
 
-export async function fetchOrderedMeals(order) {
+export async function orderMeal(items, customerData) {
   const response = await fetch('http://localhost:3000/orders', {
-    method: 'PUT',
-    body: JSON.stringify({ order }),
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
+    body: JSON.stringify({
+      order: {
+        items,
+        customer: customerData,
+      },
+    }),
   });
   const resData = await response.json();
 
